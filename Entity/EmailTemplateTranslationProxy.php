@@ -76,4 +76,44 @@ class EmailTemplateTranslationProxy extends TranslationProxy
     {
         return $this->getTranslatedValue('fromName');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTestEmailTo()
+    {
+        return $this->getTranslatedValue('testEmailTo');
+    }
+
+    /**
+     * @param string $emailTo
+     *
+     * @return EmailTemplateTranslationProxy
+     */
+    public function setTestEmailTo($emailTo)
+    {
+        $this->setTranslatedValue('testEmailTo', $emailTo);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTestVariables()
+    {
+        return $this->getTranslatedValue('testVariables');
+    }
+
+    /**
+     * @param string $variables - JSON array
+     *
+     * @return EmailTemplateTranslationProxy
+     */
+    public function setTestVariables($variables)
+    {
+        $this->setTranslatedValue('testVariables', $variables);
+
+        return $this;
+    }
 }

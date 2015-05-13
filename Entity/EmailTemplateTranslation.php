@@ -44,7 +44,7 @@ class EmailTemplateTranslation extends Translation
     protected $property;
 
     /**
-     * @var text $value
+     * @var string $value
      *
      * @ORM\Column(type="text", nullable=true)
      * @Versioned

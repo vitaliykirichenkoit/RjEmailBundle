@@ -140,7 +140,8 @@ class EmailTemplateAdmin extends Admin
     public function setTemplates(array $templates)
     {
         parent::setTemplates($templates);
-        $this->setTemplate('edit', 'RjEmailBundle:EmailTemplate:edit.html.twig');
+        // Not correct
+        // $this->setTemplate('edit', 'RjEmailBundle:EmailTemplate:edit.html.twig');
     }
 
     public function configureRoutes(RouteCollection $collection)

@@ -116,4 +116,24 @@ class EmailTemplateTranslationProxy extends TranslationProxy
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getMandrillSlug()
+    {
+        return $this->getTranslatedValue('mandrillSlug');
+    }
+
+    /**
+     * @param string $mandrillSlug
+     *
+     * @return EmailTemplateTranslationProxy
+     */
+    public function setMandrillSlug($mandrillSlug)
+    {
+        $this->setTranslatedValue('mandrillSlug', $mandrillSlug);
+
+        return $this;
+    }
 }

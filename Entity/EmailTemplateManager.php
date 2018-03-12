@@ -61,6 +61,7 @@ class EmailTemplateManager
         }
 
         $tr = $this->getTemplateTranslation($template, $locale);
+        $vars['preheader'] = $tr->getPreheader() ?: '';
 
         $subject = $this->renderTemplate(
             $template->getName()

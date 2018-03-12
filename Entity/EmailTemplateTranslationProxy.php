@@ -136,4 +136,24 @@ class EmailTemplateTranslationProxy extends TranslationProxy
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getPreheader()
+    {
+        return $this->getTranslatedValue('preheader');
+    }
+
+    /**
+     * @param string $preheader
+     *
+     * @return EmailTemplateTranslationProxy
+     */
+    public function setPreheader($preheader)
+    {
+        $this->setTranslatedValue('preheader', $preheader);
+
+        return $this;
+    }
 }

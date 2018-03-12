@@ -58,6 +58,17 @@ class EmailTemplateAdmin extends Admin
 
         foreach ($locales as $locale) {
             $formMapper
+                ->with(sprintf("Preheader", $locale))
+                    ->add(sprintf("translationProxies_%s_preheader", $locale), 'text', array(
+                        'label' => $locale,
+                        'property_path' => sprintf('translationProxies[%s].preheader', $locale),
+                    ))
+                ->end()
+            ;
+        }
+
+        foreach ($locales as $locale) {
+            $formMapper
                 ->with(sprintf("Text body", $locale))
                     ->add(sprintf("translationProxies_%s_body", $locale), 'textarea', array(
                         'label' => $locale,

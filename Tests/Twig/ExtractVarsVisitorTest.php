@@ -2,12 +2,13 @@
 
 namespace Rj\EmailBundle\Twig;
 
+use PHPUnit\Framework\TestCase;
 use Rj\EmailBundle\Twig\ExtractVarsVisitor;
 
 /**
  * @author Arnaud Le Blanc <arnaud.lb@gmail.com>
  */
-class ExtractVarsVisitorTest extends \PHPUnit_Framework_TestCase
+class ExtractVarsVisitorTest extends TestCase
 {
     public function testExtractVars()
     {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./Tests/bootstrap.php" color="true">
+<phpunit bootstrap="./Tests/bootstrap.php">
     <php>
         <ini name="xdebug.max_nesting_level" value="200" />
         <!-- <server name="SYMFONY" value="/path/to/symfony" /> -->

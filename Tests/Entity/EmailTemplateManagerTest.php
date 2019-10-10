@@ -2,16 +2,17 @@
 
 namespace Rj\EmailBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use Rj\EmailBundle\Entity\EmailTemplate;
 use Rj\EmailBundle\Entity\EmailTemplateManager;
 
-class EmailTemplateManagerTest extends \PHPUnit_Framework_TestCase
+class EmailTemplateManagerTest extends TestCase
 {
     protected $em;
     protected $repository;
     protected $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Doctrine\\ORM\\EntityManager')) {
             $this->markTestSkipped('Doctrine ORM not installed');

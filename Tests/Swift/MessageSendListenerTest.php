@@ -4,14 +4,15 @@ use Rj\EmailBundle\Swift\Events\SendListener\MessageSendListener;
 use Rj\EmailBundle\Entity\SentEmailManager;
 use Rj\EmailBundle\Swift\Message;
 use Rj\EmailBundle\Entity\SentEmail;
+use PHPUnit\Framework\TestCase;
 
-class MessageSendListenerTest extends \PHPUnit_Framework_TestCase
+class MessageSendListenerTest extends TestCase
 {
     protected $em;
     protected $repository;
     protected $manager;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Doctrine\\ORM\\EntityManager')) {
             $this->markTestSkipped('Doctrine ORM not installed');

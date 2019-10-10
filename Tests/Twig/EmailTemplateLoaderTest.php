@@ -2,14 +2,14 @@
 
 use Rj\EmailBundle\Twig\EmailTemplateLoader;
 use Rj\EmailBundle\Entity\EmailTemplate;
-use Rj\EmailBundle\Entity\EmailTemplateTranslation;
+use PHPUnit\Framework\TestCase;
 
-class EmailTemplateLoaderTest extends \PHPUnit_Framework_TestCase
+class EmailTemplateLoaderTest extends TestCase
 {
     protected $manager;
     protected $parent;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->manager = $this->getMockBuilder('Rj\EmailBundle\Entity\EmailTemplateManager')
             ->disableOriginalConstructor()

@@ -2,14 +2,27 @@
 
 namespace Rj\EmailBundle\Twig;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Rj\EmailBundle\Entity\EmailTemplate;
-use Rj\EmailBundle\Entity\EmailTemplateTranslation;
 use Rj\EmailBundle\Entity\EmailTemplateManager;
+use Twig\Loader\LoaderInterface;
 
-class EmailTemplateLoader implements \Twig_LoaderInterface
+class EmailTemplateLoader implements LoaderInterface
 {
     private $manager;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSourceContext($name)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function exists($name)
+    {
+    }
 
     public function __construct(EmailTemplateManager $manager)
     {

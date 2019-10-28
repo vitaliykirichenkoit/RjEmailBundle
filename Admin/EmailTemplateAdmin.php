@@ -11,6 +11,9 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Rj\EmailBundle\Form\Type\CallbackType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmailTemplateAdmin extends Admin
 {
@@ -48,7 +51,7 @@ class EmailTemplateAdmin extends Admin
         foreach ($locales as $locale) {
             $formMapper
                 ->with(sprintf("Subject", $locale))
-                    ->add(sprintf("translationProxies_%s_subject", $locale), 'text', array(
+                    ->add(sprintf("translationProxies_%s_subject", $locale), TextType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].subject', $locale),
                     ))
@@ -59,7 +62,7 @@ class EmailTemplateAdmin extends Admin
         foreach ($locales as $locale) {
             $formMapper
                 ->with(sprintf("Preheader", $locale))
-                    ->add(sprintf("translationProxies_%s_preheader", $locale), 'text', array(
+                    ->add(sprintf("translationProxies_%s_preheader", $locale), TextType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].preheader', $locale),
                     ))
@@ -70,13 +73,13 @@ class EmailTemplateAdmin extends Admin
         foreach ($locales as $locale) {
             $formMapper
                 ->with(sprintf("Text body", $locale))
-                    ->add(sprintf("translationProxies_%s_body", $locale), 'textarea', array(
+                    ->add(sprintf("translationProxies_%s_body", $locale), TextareaType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].body', $locale),
                     ))
                 ->end()
                 ->with(sprintf("Html body", $locale))
-                    ->add(sprintf("translationProxies_%s_body_html", $locale), 'textarea', array(
+                    ->add(sprintf("translationProxies_%s_body_html", $locale), TextType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].bodyHtml', $locale),
                     ))
@@ -87,7 +90,7 @@ class EmailTemplateAdmin extends Admin
         foreach ($locales as $locale) {
             $formMapper
                 ->with(sprintf("From name", $locale))
-                    ->add(sprintf("translationProxies_%s_fromName", $locale), 'text', array(
+                    ->add(sprintf("translationProxies_%s_fromName", $locale), TextType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].fromName', $locale),
                         'required' => false,
@@ -99,7 +102,7 @@ class EmailTemplateAdmin extends Admin
         foreach ($locales as $locale) {
             $formMapper
                 ->with(sprintf("From email", $locale))
-                    ->add(sprintf("translationProxies_%s_fromEmail", $locale), 'email', array(
+                    ->add(sprintf("translationProxies_%s_fromEmail", $locale), EmailType::class, array(
                         'label' => $locale,
                         'property_path' => sprintf('translationProxies[%s].fromEmail', $locale),
                         'required' => false,

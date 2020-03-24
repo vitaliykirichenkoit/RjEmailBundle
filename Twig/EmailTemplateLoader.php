@@ -5,23 +5,31 @@ namespace Rj\EmailBundle\Twig;
 use Rj\EmailBundle\Entity\EmailTemplate;
 use Rj\EmailBundle\Entity\EmailTemplateManager;
 use Twig\Loader\LoaderInterface;
+use Twig\Source;
 
 class EmailTemplateLoader implements LoaderInterface
 {
     private $manager;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getSourceContext($name)
-    {
-    }
+    protected $template;
+
+    protected $locale;
+
+    protected $part;
 
     /**
      * {@inheritDoc}
      */
     public function exists($name)
     {
+        try {
+            list($name, $this->locale, $this->part) = $this->parse($name);
+            $this->template = $this->getTemplate($name);
+
+            return true;
+        } catch (\Twig_Error_Loader $e) {
+            return false;
+        }
     }
 
     public function __construct(EmailTemplateManager $manager)
@@ -38,14 +46,11 @@ class EmailTemplateLoader implements LoaderInterface
      *
      * @throws Twig_Error_Loader When $name is not found
      */
-    public function getSource($name)
+    public function getSourceContext($name)
     {
-        list($name, $locale, $part) = $this->parse($name);
+        $source = $this->getTemplatePart($this->template, $this->locale, $this->part) ?: '';
 
-        $template = $this->getTemplate($name);
-        $source = $this->getTemplatePart($template, $locale, $part);
-
-        return $source;
+        return new Source($source, $name);
     }
 
     /**
@@ -126,13 +131,13 @@ class EmailTemplateLoader implements LoaderInterface
 
         switch ($part) {
         case 'subject':
-            return '{% autoescape false %}' . $translation->getSubject() . '{% endautoescape %}';
-        case 'body':
-            return $translation->getBody();
-        case 'bodyHtml':
-            return $translation->getBodyHtml();
-        default:
-            throw new \Twig_Error_Loader(sprintf("Invalid template part %s", $part));
+                return '{% autoescape false %}' . $translation->getSubject() . '{% endautoescape %}';
+            case 'body':
+                return $translation->getBody();
+            case 'bodyHtml':
+                return $translation->getBodyHtml();
+            default:
+                throw new \Twig_Error_Loader(sprintf("Invalid template part %s", $part));
         }
     }
 }

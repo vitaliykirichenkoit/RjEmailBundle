@@ -2,9 +2,10 @@
 
 namespace Rj\EmailBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use Rj\EmailBundle\Entity\EmailTemplate;
 
-class EmailTemplateTest extends \PHPUnit_Framework_TestCase
+class EmailTemplateTest extends TestCase
 {
     public function testEmailTemplateTranslation()
     {

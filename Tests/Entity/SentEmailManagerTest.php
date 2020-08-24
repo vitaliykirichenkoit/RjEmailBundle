@@ -2,15 +2,16 @@
 
 use Rj\EmailBundle\Entity\SentEmailManager;
 use Rj\EmailBundle\Swift\Message;
+use PHPUnit\Framework\TestCase;
 
-class SentEmailManagerTest extends \PHPUnit_Framework_TestCase
+class SentEmailManagerTest extends TestCase
 {
 
     protected $em;
     protected $repository;
     protected $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('Doctrine\\ORM\\EntityManager')) {
             $this->markTestSkipped('Doctrine ORM not installed');

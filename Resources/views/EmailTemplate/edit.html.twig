@@ -4,7 +4,7 @@
 {% block form %}
     {{ parent() }}
     <script type="text/javascript">
-        {% autoescape true js %}
+        {% autoescape 'js' %}
             (function() {
                 function getSavedData() {
                     var savedData;

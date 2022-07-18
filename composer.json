@@ -22,12 +22,12 @@
         "swiftmailer/swiftmailer": "*",
         "stof/doctrine-extensions-bundle": "*",
         "a2lix/translation-form-bundle" : "*",
-        "twig/twig": "^2.0",
-        "phpunit/phpunit": "9.*"
+        "twig/twig": "^2.0"
     },
 
     "require-dev": {
-        "doctrine/orm": "2.*"
+        "doctrine/orm": "2.*",
+        "phpunit/phpunit": "9.*"
     },
 
     "autoload": {

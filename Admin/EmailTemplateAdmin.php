@@ -2,20 +2,19 @@
 
 namespace Rj\EmailBundle\Admin;
 
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Rj\EmailBundle\Form\Type\CallbackType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class EmailTemplateAdmin extends Admin
+class EmailTemplateAdmin extends AbstractAdmin
 {
     protected $baseRouteName = 'email_template';
     protected $baseRoutePattern = 'email_template';
@@ -38,84 +37,84 @@ class EmailTemplateAdmin extends Admin
     }
 
     //add
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $form): void
     {
-        $formMapper
+        $form
             ->with('Email Templates')
-                ->add('name')
+            ->add('name')
             ->end()
         ;
 
         $locales = $this->locales;
 
         foreach ($locales as $locale) {
-            $formMapper
+            $form
                 ->with(sprintf("Subject", $locale))
-                    ->add(sprintf("translationProxies_%s_subject", $locale), TextType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].subject', $locale),
-                    ))
+                ->add(sprintf("translationProxies_%s_subject", $locale), TextType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].subject', $locale),
+                ))
                 ->end()
             ;
         }
 
         foreach ($locales as $locale) {
-            $formMapper
+            $form
                 ->with(sprintf("Preheader", $locale))
-                    ->add(sprintf("translationProxies_%s_preheader", $locale), TextType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].preheader', $locale),
-                    ))
+                ->add(sprintf("translationProxies_%s_preheader", $locale), TextType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].preheader', $locale),
+                ))
                 ->end()
             ;
         }
 
         foreach ($locales as $locale) {
-            $formMapper
+            $form
                 ->with(sprintf("Text body", $locale))
-                    ->add(sprintf("translationProxies_%s_body", $locale), TextareaType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].body', $locale),
-                    ))
+                ->add(sprintf("translationProxies_%s_body", $locale), TextareaType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].body', $locale),
+                ))
                 ->end()
                 ->with(sprintf("Html body", $locale))
-                    ->add(sprintf("translationProxies_%s_body_html", $locale), TextType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].bodyHtml', $locale),
-                    ))
+                ->add(sprintf("translationProxies_%s_body_html", $locale), TextType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].bodyHtml', $locale),
+                ))
                 ->end()
             ;
         }
 
         foreach ($locales as $locale) {
-            $formMapper
+            $form
                 ->with(sprintf("From name", $locale))
-                    ->add(sprintf("translationProxies_%s_fromName", $locale), TextType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].fromName', $locale),
-                        'required' => false,
-                    ))
+                ->add(sprintf("translationProxies_%s_fromName", $locale), TextType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].fromName', $locale),
+                    'required' => false,
+                ))
                 ->end()
             ;
         }
 
         foreach ($locales as $locale) {
-            $formMapper
+            $form
                 ->with(sprintf("From email", $locale))
-                    ->add(sprintf("translationProxies_%s_fromEmail", $locale), EmailType::class, array(
-                        'label' => $locale,
-                        'property_path' => sprintf('translationProxies[%s].fromEmail', $locale),
-                        'required' => false,
-                    ))
+                ->add(sprintf("translationProxies_%s_fromEmail", $locale), EmailType::class, array(
+                    'label' => $locale,
+                    'property_path' => sprintf('translationProxies[%s].fromEmail', $locale),
+                    'required' => false,
+                ))
                 ->end()
             ;
         }
     }
 
     //list
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->addIdentifier('id')
             ->addIdentifier('name')
             ->addIdentifier('createdAt')
@@ -130,9 +129,9 @@ class EmailTemplateAdmin extends Admin
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $datagridMapper
+        $filter
             ->add('id')
             ->add('name')
             ->add('createdAt')
@@ -143,7 +142,7 @@ class EmailTemplateAdmin extends Admin
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if ('edit' == $action) {
-            $item = $this->menuFactory->createItem('send_test', array(
+            $item = $this->getMenuFactory()->createItem('send_test', array(
                 'uri' => 'javascript:void(send_test())',
                 'label' => 'Send test email',
             ));
@@ -151,14 +150,7 @@ class EmailTemplateAdmin extends Admin
         }
     }
 
-    public function setTemplates(array $templates)
-    {
-        parent::setTemplates($templates);
-        // Not correct
-        // $this->setTemplate('edit', 'RjEmailBundle:EmailTemplate:edit.html.twig');
-    }
-
-    public function configureRoutes(RouteCollection $collection)
+    protected function configureRoutes(RouteCollectionInterface $collection): void
     {
         $collection->add('send_test', $this->getRouterIdParameter().'/send_test');
     }
